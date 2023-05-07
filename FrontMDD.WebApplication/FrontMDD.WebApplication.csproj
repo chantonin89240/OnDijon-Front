@@ -10,4 +10,8 @@
     <Folder Include="wwwroot\lib\leaflet\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FrontMDD.Service\FrontMDD.Service.csproj" />
+  </ItemGroup>
+
 </Project>

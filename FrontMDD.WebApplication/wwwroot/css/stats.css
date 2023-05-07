@@ -1,0 +1,25 @@
+﻿.table {
+    width: 70%!important;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+}
+
+    .table th, .table td {
+        text-align: center;
+        border: 1px solid #ccc;
+    }
+
+    .table th {
+        background-color: #f2f2f2;
+    }
+
+    .table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+.container-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

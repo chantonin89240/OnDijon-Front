@@ -1,9 +1,39 @@
 ﻿@page
+@using System.Globalization
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Accueil";
+    var mapCenter = ViewData["MapCenter"] as string[];
+    var mapZoom = ViewData["MapZoom"] as int?;
 }
 
-<div class="container">
-    <div id="map"></div>
-</div>
+<h1>Accueil</h1>
+
+<div id="map" style="height: 500px;"></div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        const map = L.map('map').setView([47.32665, 5.04497], 15);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        const marker = L.marker([47.3351, 5.0538]).addTo(map);
+        marker.bindPopup("le DIIAGE").openPopup();
+
+        @if (Model.Abris != null && Model.Abris.Count > 0)
+        {
+            foreach (var abri in Model.Abris)
+            {
+                <text>
+                    L.marker([@abri.GeoPointLat.ToString(CultureInfo.InvariantCulture), @abri.GeoPointLon.ToString(CultureInfo.InvariantCulture)])
+                        .addTo(map)
+                        .bindPopup("@abri.Nom<br/> Places : " + @abri.NbPlaces);
+                </text>
+            }
+        }
+    </script>
+}
