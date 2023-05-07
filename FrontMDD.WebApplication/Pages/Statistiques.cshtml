@@ -1,0 +1,41 @@
+﻿@page
+@model StatistiquesModel
+@{
+    ViewData["Title"] = "Statistiques";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/stats.css" />
+</head>
+
+<div class="container-stats">
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.ListProfils != null && Model.ListProfils.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var profil in Model.ListProfils)
+            {
+                <tr>
+                    <td>@profil.Id</td>
+                    <td>@profil.Nom</td>
+                    <td>@profil.Prenom</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Aucun profil trouvé.</p>
+}
+</div>
