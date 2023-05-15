@@ -21,9 +21,6 @@
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        const marker = L.marker([47.3351, 5.0538]).addTo(map);
-        marker.bindPopup("le DIIAGE").openPopup();
-
         @if (Model.Abris != null && Model.Abris.Count > 0)
         {
             foreach (var abri in Model.Abris)

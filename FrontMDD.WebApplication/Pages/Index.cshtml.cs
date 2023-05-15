@@ -24,7 +24,6 @@ namespace FrontMDD.WebApplication.Pages
         public async Task OnGetAsync()
         {
             Abris = await _abrisServices.GetAllAbris();
-
         }
     }
 }
