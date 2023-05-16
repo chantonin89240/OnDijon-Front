@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/FrontMDD.WebApplication.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/leaflet/leaflet.css" />
+
 </head>
 <body>
     <header>
@@ -26,7 +27,7 @@
             </div>
         </nav>
     </header>
-    <main role="main" class="pb-3">
+    <main role="main" class="container">
         @RenderBody()
     </main>
 
@@ -37,12 +38,12 @@
         </div>
     </footer>
 
-    <script src="~/lib/leaflet/leaflet.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    
-    
-
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+
+<script src="~/lib/leaflet/leaflet.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js"></script>
+
+@await RenderSectionAsync("Scripts", required: false)

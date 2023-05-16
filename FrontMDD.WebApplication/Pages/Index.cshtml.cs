@@ -1,10 +1,6 @@
 ﻿using FrontMDD.Entities;
 using FrontMDD.Service;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace FrontMDD.WebApplication.Pages
 {
@@ -24,6 +20,12 @@ namespace FrontMDD.WebApplication.Pages
         public async Task OnGetAsync()
         {
             Abris = await _abrisServices.GetAllAbris();
+            
+        }
+
+        public void StatAbris()
+        {
+
         }
     }
 }
