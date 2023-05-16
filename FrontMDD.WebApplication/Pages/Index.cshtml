@@ -7,10 +7,42 @@
     var mapZoom = ViewData["MapZoom"] as int?;
 }
 
-<h1>Accueil</h1>
+<div class="row">
+    <h1>Abris</h1>
+    <div class="col-7">
+        <div id="map" style="height: 500px;"></div>
+    </div>
+    <div class="col-5">
+        <h1>Statistique</h1>
+        <div id="container"></div>
+        <br>
+        <div>
+            <p>sélectionner un abris ainsi qu'une date de début et de fin :</p>
+            <form>
+                <select id="listeAbris" name="">
+                    @foreach(var item in Model.Abris)
+                    {
+                        <option value="@item.RecordId">@item.Nom</option>
+                    }
+                </select>
 
-<div id="map" style="height: 500px;"></div>
+                <br />
+                <label for="DateStart">Date de début : </label>
+                <input type="datetime-local" id="DateStart"
+                       name="DateStart">
 
+                <br />
+                <label for="DateEnd">Date de fin : </label>
+                <input type="datetime-local" id="DateEnd"
+                       name="DateEnd">
+                
+                <br />
+                <button type="button" class="btn btn-primary" onclick="StatAbris">Valider</button>
+            </form>
+            
+        </div>
+    </div>
+</div>
 <button id="refreshButton" onclick="refreshMap()">Refresh</button>
 
 @section scripts {
@@ -29,7 +61,7 @@
                 map.remove();
             }
 
-            map = L.map('map').setView([47.32665, 5.04497], 15);
+            map = L.map('map').setView([47.32665, 5.04497], 14);
 
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
