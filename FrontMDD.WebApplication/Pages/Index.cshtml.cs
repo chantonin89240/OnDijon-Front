@@ -2,10 +2,6 @@
 using FrontMDD.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace FrontMDD.WebApplication.Pages
 {
@@ -39,6 +35,12 @@ namespace FrontMDD.WebApplication.Pages
                     abris.NbPlaces = shelter?.Available;
                 }
             }
+            
+        }
+
+        public void StatAbris()
+        {
+
         }
 
     }
