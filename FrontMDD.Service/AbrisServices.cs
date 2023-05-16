@@ -39,6 +39,28 @@ namespace FrontMDD.Service
             }
 
         }
+        public async Task<List<ShelterState>> GetAllShelterState()
+        {
+            string api = "https://apitestg2.azurewebsites.net/api";
+
+            using HttpResponseMessage response = await _httpClient.GetAsync(api + "/ShelterState/All");
+
+            response.EnsureSuccessStatusCode();
+
+            var json = await response.Content.ReadAsStringAsync();
+            var listShelterState = JsonConvert.DeserializeObject<List<ShelterState>>(json);
+
+            Console.WriteLine(listShelterState);
+            if (listShelterState != null && listShelterState.Count > 0)
+            {
+                return listShelterState;
+            }
+            else
+            {
+                throw new Exception("Aucun abris états trouvé." );
+            }
+
+        }
 
     }
 }
