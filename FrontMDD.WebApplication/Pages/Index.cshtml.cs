@@ -48,7 +48,7 @@ namespace FrontMDD.WebApplication.Pages
             var selected = Request.Form["SelectedAbri"];
             var dateStart = Request.Form["DateStart"];
             var dateEnd = Request.Form["DateEnd"];
-
+            var test = selected[0];
             try
             {
 
@@ -56,9 +56,11 @@ namespace FrontMDD.WebApplication.Pages
                 ShelterState = await _abrisServices.GetAllShelterState();
                 AbrisStatCount = await _abrisStatServices.GetAbrisStat(selected!, dateStart!, dateEnd!);
 
+
                 if (AbrisStatCount > 0) 
                 {
-                    libelleResult = "Statistiques d'intéractions utilisateur : " + AbrisStatCount;
+                    Abris? libelleAbris = Abris.Find(x => x.RecordId == selected[0]);
+                    libelleResult = "Statistiques d'intéractions utilisateur pour l'abri " + libelleAbris?.Nom + " : " + AbrisStatCount;
                 } else if(AbrisStatCount == 0)
                 {
                     libelleResult = "Aucune statistiques enregistrer pendant cette période";
