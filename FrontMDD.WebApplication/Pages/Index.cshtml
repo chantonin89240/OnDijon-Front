@@ -18,12 +18,16 @@
         <br>
         <div>
             <p>sélectionner un abris ainsi qu'une date de début et de fin :</p>
-            <form>
-                <select id="listeAbris" name="">
-                    @foreach(var item in Model.Abris)
+            <form method="post">
+                <select id="listeAbris" name="SelectedAbri">
+                    @if(Model.Abris != null)
                     {
-                        <option value="@item.RecordId">@item.Nom</option>
+                        @foreach (var item in Model.Abris)
+                        {
+                            <option value="@item.RecordId">@item.Nom</option>
+                        }
                     }
+                    
                 </select>
 
                 <br />
@@ -37,7 +41,7 @@
                        name="DateEnd">
                 
                 <br />
-                <button type="button" class="btn btn-primary" onclick="StatAbris">Valider</button>
+                <button type="submit" class="btn btn-primary">Valider</button>
             </form>
             
         </div>
