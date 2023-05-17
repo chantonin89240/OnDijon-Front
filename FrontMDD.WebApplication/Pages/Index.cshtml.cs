@@ -16,6 +16,7 @@ namespace FrontMDD.WebApplication.Pages
         public List<Abris>? Abris { get; set; }
         public List<ShelterState>? ShelterState { get; set; }
         public int? AbrisStatCount { get; set; }
+        public string libelleResult { get; set; }
 
         public IndexModel(ILogger<IndexModel> logger, AbrisServices abrisServices, AbrisStatServices abrisStatServices)
         {
@@ -44,27 +45,45 @@ namespace FrontMDD.WebApplication.Pages
 
         public async Task OnPostAsync()
         {
-
             var selected = Request.Form["SelectedAbri"];
             var dateStart = Request.Form["DateStart"];
             var dateEnd = Request.Form["DateEnd"];
 
-            AbrisStatCount = await _abrisStatServices.GetAbrisStat(selected!, dateStart!, dateEnd!);
-
-
-            Abris = await _abrisServices.GetAllAbris();
-            ShelterState = await _abrisServices.GetAllShelterState();
-
-            if (Abris != null)
+            try
             {
-                foreach (var abris in Abris)
+
+                Abris = await _abrisServices.GetAllAbris();
+                ShelterState = await _abrisServices.GetAllShelterState();
+                AbrisStatCount = await _abrisStatServices.GetAbrisStat(selected!, dateStart!, dateEnd!);
+
+                if (AbrisStatCount > 0) 
                 {
-                    var shelter = ShelterState.LastOrDefault(x => x.IdAbris == abris.RecordId);
-                    abris.NbPlaces = shelter?.Available;
+                    libelleResult = "Statistiques d'intéractions utilisateur : " + AbrisStatCount;
+                } else if(AbrisStatCount == 0)
+                {
+                    libelleResult = "Aucune statistiques enregistrer pendant cette période";
+                    
+                }
+
+
+                if (Abris != null)
+                {
+                    foreach (var abris in Abris)
+                    {
+                        var shelter = ShelterState.LastOrDefault(x => x.IdAbris == abris.RecordId);
+                        abris.NbPlaces = shelter?.Available;
+                    }
                 }
             }
-            // do something with emailAddress
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                libelleResult = "Le formulaire n'est pas complet";
+                // Gérer l'erreur ici, par exemple en définissant un message d'erreur à afficher à l'utilisateur
+                ViewData["ErrorMessage"] = "Une erreur s'est produite lors du calcul des statistiques des abris.";
+            }
         }
+
 
     }
 }
