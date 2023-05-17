@@ -11,6 +11,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddSignalR();
 builder.Services.AddScoped<ProfilServices>();
 builder.Services.AddScoped<AbrisServices>();
+builder.Services.AddScoped<AbrisStatServices>();
 builder.Services.AddTransient<IndexModel>();
 
 

@@ -10,15 +10,18 @@ namespace FrontMDD.WebApplication.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly AbrisServices _abrisServices;
+        private readonly AbrisStatServices _abrisStatServices;
 
 
         public List<Abris>? Abris { get; set; }
         public List<ShelterState>? ShelterState { get; set; }
+        public int? AbrisStatCount { get; set; }
 
-        public IndexModel(ILogger<IndexModel> logger, AbrisServices abrisServices)
+        public IndexModel(ILogger<IndexModel> logger, AbrisServices abrisServices, AbrisStatServices abrisStatServices)
         {
             _logger = logger;
             _abrisServices = abrisServices;
+            _abrisStatServices = abrisStatServices;
 
         }
 
@@ -45,6 +48,9 @@ namespace FrontMDD.WebApplication.Pages
             var selected = Request.Form["SelectedAbri"];
             var dateStart = Request.Form["DateStart"];
             var dateEnd = Request.Form["DateEnd"];
+
+            AbrisStatCount = await _abrisStatServices.GetAbrisStat(selected!, dateStart!, dateEnd!);
+
 
             Abris = await _abrisServices.GetAllAbris();
             ShelterState = await _abrisServices.GetAllShelterState();
