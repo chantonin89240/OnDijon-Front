@@ -42,18 +42,10 @@
                 
                 <br />
                 <button type="submit" class="btn btn-primary">Valider</button>
-            </form>
-            @if (Model.AbrisStatCount > 0)
-            {
+            </form>           
                 <div class="result">
-                    <p>Statistiques d'intéractions utilisateur : @Model.AbrisStatCount</p>
-                </div>
-            }
-            else if(Model.AbrisStatCount == 0)
-            {
-                <p>Aucune statistiques enregistrer pendant cette période</p>
-            }
-          
+                    <p>@Model.libelleResult</p>
+                </div>         
         </div>
     </div>
 </div>
