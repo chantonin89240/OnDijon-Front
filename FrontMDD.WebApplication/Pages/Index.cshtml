@@ -43,9 +43,15 @@
                 
                 <br />
                 <button type="submit" class="btn btn-success">Valider</button>
-            </form>           
+            </form>   
+            
                 <div class="result">
-                    <p>@Model.libelleResult</p>
+                    @if(Model.HistorySearch != null){
+                    @foreach (var libelle in Model.HistorySearch)
+                    {
+                        <p>@libelle</p>
+                    }
+                }
                 </div>         
         </div>
     </div>

@@ -6,13 +6,15 @@ using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Ajouter les services au conteneur.
+builder.Services.AddSession();
 builder.Services.AddRazorPages();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
-builder.Services.AddSignalR();
 builder.Services.AddScoped<ProfilServices>();
 builder.Services.AddScoped<AbrisServices>();
 builder.Services.AddScoped<AbrisStatServices>();
 builder.Services.AddTransient<IndexModel>();
+
 
 
 var app = builder.Build();
@@ -27,6 +29,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseSession();
 
 app.UseRouting();
 
