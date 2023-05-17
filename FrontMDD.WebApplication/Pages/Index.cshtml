@@ -9,7 +9,8 @@
 
 <div class="row">
     <h1>Abris</h1>
-    <div class="col-7">
+    <div class="col-7">        
+        <button id="refreshButton" class="btn btn-primary mb-2" onclick="refreshMap()">Refresh</button>
         <div id="map" style="height: 500px;"></div>
     </div>
     <div class="col-5">
@@ -41,7 +42,7 @@
                        name="DateEnd">
                 
                 <br />
-                <button type="submit" class="btn btn-primary">Valider</button>
+                <button type="submit" class="btn btn-success">Valider</button>
             </form>
             @if (Model.AbrisStatCount > 0)
             {
@@ -57,7 +58,7 @@
         </div>
     </div>
 </div>
-<button id="refreshButton" onclick="refreshMap()">Refresh</button>
+
 
 @section scripts {
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js"></script>
