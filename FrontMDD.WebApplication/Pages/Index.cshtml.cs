@@ -34,13 +34,9 @@ namespace FrontMDD.WebApplication.Pages
 
         }
 
-        public async Task OnGetAsync()
+        public async Task OnGet()
         {
-
-        
-
-
-
+            
             Abris = await _abrisServices.GetAllAbris();
             if (Abris != null)
             {
@@ -53,57 +49,47 @@ namespace FrontMDD.WebApplication.Pages
                     abris.NbPlaces = shelter?.Available;
                 }
             }
-         
+
 
         }
 
         public async Task OnPostAsync()
         {
-            var selected = Request.Form["SelectedAbri"];
-            var dateStart = Request.Form["DateStart"];
-            var dateEnd = Request.Form["DateEnd"];
-
             // Récupérer la valeur de HistorySearch depuis la session
             if (_httpContextAccessor.HttpContext.Session.TryGetValue("HistorySearch", out var historySearchDataBytes))
             {
                 var historySearchDataString = Encoding.UTF8.GetString(historySearchDataBytes);
                 HistorySearch = JsonConvert.DeserializeObject<List<string>>(historySearchDataString);
-                if (HistorySearch.Count >= 8)
-                {
-                    HistorySearch = new List<string>();
-                }
             }
             else
             {
                 HistorySearch = new List<string>();
             }
+            var selected = Request.Form["SelectedAbri"];
+            var dateStart = Request.Form["DateStart"];
+            var dateEnd = Request.Form["DateEnd"];
 
             try
             {
-
                 Abris = await _abrisServices.GetAllAbris();
                 ShelterState = await _abrisServices.GetAllShelterState();
                 AbrisStatCount = await _abrisStatServices.GetAbrisStat(selected!, dateStart!, dateEnd!);
 
-
-                if (AbrisStatCount > 0) 
+                if (AbrisStatCount > 0)
                 {
                     Abris? libelleAbris = Abris.Find(x => x.RecordId == selected[0]);
-                    var dateStartFormated = DateTime.Parse(dateStart);
-                    var dateEndFormated = DateTime.Parse(dateEnd);
-                    libelleResult = "Statistiques d'intéractions utilisateur pour l'abri " + libelleAbris?.Nom + " Du " + dateStartFormated + " Au " + dateEndFormated + " : " + AbrisStatCount;
+                    var dateStartFormatted = DateTime.Parse(dateStart).ToString("dd MMMM yyyy 'à' HH:mm");
+                    var dateEndFormatted = DateTime.Parse(dateEnd).ToString("dd MMMM yyyy 'à' HH:mm");
+                    libelleResult = $"Statistiques d'intéractions utilisateur pour l'abri {libelleAbris?.Nom} du {dateStartFormatted} au {dateEndFormatted} : {AbrisStatCount}";
                     HistorySearch.Add(libelleResult);
                     _httpContextAccessor.HttpContext.Session.SetString("HistorySearch", JsonConvert.SerializeObject(HistorySearch));
-
                 }
-                else if(AbrisStatCount == 0)
+                else if (AbrisStatCount == 0)
                 {
-                    libelleResult = "Aucune statistiques enregistrer pendant cette période";
+                    libelleResult = "Aucune statistiques enregistrée pendant cette période";
                     HistorySearch.Add(libelleResult);
                     _httpContextAccessor.HttpContext.Session.SetString("HistorySearch", JsonConvert.SerializeObject(HistorySearch));
-
                 }
-
 
                 if (Abris != null)
                 {
@@ -119,12 +105,8 @@ namespace FrontMDD.WebApplication.Pages
                 Console.WriteLine(ex);
                 libelleResult = "Le formulaire n'est pas complet";
                 HistorySearch.Add(libelleResult);
-                _httpContextAccessor.HttpContext.Session.SetString("HistorySearch", JsonConvert.SerializeObject(HistorySearch));
-                // Gérer l'erreur ici, par exemple en définissant un message d'erreur à afficher à l'utilisateur
-                ViewData["ErrorMessage"] = "Une erreur s'est produite lors du calcul des statistiques des abris.";
             }
+
         }
-
-
     }
 }

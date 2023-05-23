@@ -20,9 +20,11 @@ namespace FrontMDD.Service
         public async Task<List<Profil>> GetAllProfil()
         {
             string api = "https://apitestg2.azurewebsites.net/api";
+            string apiLocal = "https://localhost:7058/api";
+
             Console.WriteLine(api);
 
-            using HttpResponseMessage response = await _httpClient.GetAsync(api + "/Profil");
+            using HttpResponseMessage response = await _httpClient.GetAsync(apiLocal + "/Profil");
 
             response.EnsureSuccessStatusCode();
 

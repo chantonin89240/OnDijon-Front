@@ -19,9 +19,10 @@ namespace FrontMDD.Service
         public async Task<List<Abris>> GetAllAbris()
         {
             string api = "https://apitestg2.azurewebsites.net/api";
+            string apiLocal = "https://localhost:7058/api";
             Console.WriteLine(api);
 
-            using HttpResponseMessage response = await _httpClient.GetAsync(api + "/Abri");
+            using HttpResponseMessage response = await _httpClient.GetAsync(apiLocal + "/Abri");
 
             response.EnsureSuccessStatusCode();
 
@@ -42,8 +43,10 @@ namespace FrontMDD.Service
         public async Task<List<ShelterState>> GetAllShelterState()
         {
             string api = "https://apitestg2.azurewebsites.net/api";
+            string apiLocal = "https://localhost:7058/api";
 
-            using HttpResponseMessage response = await _httpClient.GetAsync(api + "/ShelterState/All");
+
+            using HttpResponseMessage response = await _httpClient.GetAsync(apiLocal + "/ShelterState/All");
 
             response.EnsureSuccessStatusCode();
 
