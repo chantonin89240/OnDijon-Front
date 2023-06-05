@@ -20,6 +20,8 @@ namespace FrontMDD.Service
         public async Task<int> GetAbrisStat(string id, string dateStart, string dateEnd)
         {
             string api = "https://apitestg2.azurewebsites.net/api";
+            string apiLocal = "https://localhost:7058/api";
+
             Console.WriteLine(api);
 
             var content = new StringContent(
