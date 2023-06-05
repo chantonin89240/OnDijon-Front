@@ -30,7 +30,7 @@ namespace FrontMDD.Service
                 "application/json"
             );
 
-            using var response = await _httpClient.PostAsync(apiLocal + "/ShelterState/Stat", content);
+            using var response = await _httpClient.PostAsync(api + "/ShelterState/Stat", content);
 
             response.EnsureSuccessStatusCode();
 

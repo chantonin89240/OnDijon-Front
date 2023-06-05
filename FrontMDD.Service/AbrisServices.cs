@@ -22,7 +22,7 @@ namespace FrontMDD.Service
             string apiLocal = "https://localhost:7058/api";
             Console.WriteLine(api);
 
-            using HttpResponseMessage response = await _httpClient.GetAsync(apiLocal + "/Abri");
+            using HttpResponseMessage response = await _httpClient.GetAsync(api + "/Abri");
 
             response.EnsureSuccessStatusCode();
 
@@ -46,7 +46,7 @@ namespace FrontMDD.Service
             string apiLocal = "https://localhost:7058/api";
 
 
-            using HttpResponseMessage response = await _httpClient.GetAsync(apiLocal + "/ShelterState/All");
+            using HttpResponseMessage response = await _httpClient.GetAsync(api + "/ShelterState/All");
 
             response.EnsureSuccessStatusCode();
 

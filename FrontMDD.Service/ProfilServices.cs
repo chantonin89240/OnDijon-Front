@@ -24,7 +24,7 @@ namespace FrontMDD.Service
 
             Console.WriteLine(api);
 
-            using HttpResponseMessage response = await _httpClient.GetAsync(apiLocal + "/Profil");
+            using HttpResponseMessage response = await _httpClient.GetAsync(api + "/Profil");
 
             response.EnsureSuccessStatusCode();
 
