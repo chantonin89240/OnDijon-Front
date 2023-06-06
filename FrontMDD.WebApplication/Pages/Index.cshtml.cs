@@ -64,7 +64,7 @@ namespace FrontMDD.WebApplication.Pages
             {
                 var historySearchDataString = Encoding.UTF8.GetString(historySearchDataBytes);
                 HistorySearch = JsonConvert.DeserializeObject<List<string>>(historySearchDataString);
-                if (HistorySearch?.Count >= 8)
+                if (HistorySearch?.Count >= 5)
                 {
                     HistorySearch = new List<string>();
                 }
@@ -79,6 +79,16 @@ namespace FrontMDD.WebApplication.Pages
 
                 Abris = await _abrisServices.GetAllAbris();
                 ShelterState = await _abrisServices.GetAllShelterState();
+                
+                if (Abris != null)
+                {
+                    foreach (var abris in Abris)
+                    {
+                        var shelter = ShelterState.LastOrDefault(x => x.IdAbris == abris.RecordId);
+                        abris.NbPlaces = shelter?.Available;
+                    }
+                }
+
                 AbrisStatCount = await _abrisStatServices.GetAbrisStat(selected!, dateStart!, dateEnd!);
 
 
@@ -98,16 +108,6 @@ namespace FrontMDD.WebApplication.Pages
                     HistorySearch?.Add(libelleResult);
                     _httpContextAccessor.HttpContext.Session.SetString("HistorySearch", JsonConvert.SerializeObject(HistorySearch));
 
-                }
-
-
-                if (Abris != null)
-                {
-                    foreach (var abris in Abris)
-                    {
-                        var shelter = ShelterState.LastOrDefault(x => x.IdAbris == abris.RecordId);
-                        abris.NbPlaces = shelter?.Available;
-                    }
                 }
             }
             catch (Exception ex)

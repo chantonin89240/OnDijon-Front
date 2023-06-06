@@ -7,54 +7,61 @@
     var mapZoom = ViewData["MapZoom"] as int?;
 }
 
-<div class="row">
-    <h1>Abris</h1>
-    <div class="col-7">
-        <button id="refreshButton" class="btn btn-primary mb-2" onclick="refreshMap()">Refresh</button>
-        <div id="map" style="height: 500px;"></div>
-    </div>
-    <div class="col-5">
-        <h1>Statistique</h1>
-        <div id="container"></div>
+<div class="container">
+    <div class="left-container">
+        <h1>Abris</h1>
         <br>
-        <div>
-            <p>sélectionner un abris ainsi qu'une date de début et de fin :</p>
-            <form method="post">
-                <select id="listeAbris" name="SelectedAbri">
-                    @if (Model.Abris != null)
-                    {
-                        @foreach (var item in Model.Abris)
+        <div class="map">
+            <div id="map" style="height: 500px;"></div>
+            <button id="refreshButton" class="btn btn-primary mb-2" onclick="refreshMap()">Refresh</button>
+
+        </div>
+    </div>
+ 
+    <div>
+        <div class="rigt-container">
+            <h1>Statistique</h1>
+            <div id="container"></div>
+            <br>
+            <div id="form">
+                <p>Sélectionner un abris ainsi qu'une date de début et de fin :</p>
+                <form method="post">
+                    <select class="select-input" id="listeAbris" name="SelectedAbri">
+                        @if (Model.Abris != null)
                         {
-                            <option value="@item.RecordId">@item.Nom</option>
+                            @foreach (var item in Model.Abris)
+                            {
+                                <option value="@item.RecordId">@item.Nom</option>
+                            }
+                        }
+
+                    </select>
+
+                    <br />
+                    <label for="DateStart">Date de début : </label>
+                    <input class="date-input" type="datetime-local" id="DateStart"
+                           name="DateStart">
+
+                    <br />
+                    <label for="DateEnd">Date de fin : </label>
+                    <input class="date-input" type="datetime-local" id="DateEnd"
+                           name="DateEnd">
+
+                    <br />
+                    <button type="submit" onclick="OnGetAsync()" class="btn btn-success">Valider</button>
+                </form>
+
+                <div class="result">
+                    @if (Model.HistorySearch != null)
+                    {
+                        @foreach (var libelle in Model.HistorySearch)
+                        {
+                            <p>@libelle</p>
                         }
                     }
-
-                </select>
-
-                <br />
-                <label for="DateStart">Date de début : </label>
-                <input type="datetime-local" id="DateStart"
-                       name="DateStart">
-
-                <br />
-                <label for="DateEnd">Date de fin : </label>
-                <input type="datetime-local" id="DateEnd"
-                       name="DateEnd">
-
-                <br />
-                <button type="submit" class="btn btn-success">Valider</button>
-            </form>
-
-            <div class="result">
-                @if (Model.HistorySearch != null)
-                {
-                    @foreach (var libelle in Model.HistorySearch)
-                    {
-                        <p>@libelle</p>
-                    }
-                }
+                </div>
             </div>
-        </div>
+        </div>  
     </div>
 </div>
 
@@ -67,6 +74,7 @@
     <script>
         function refreshMap() {
             location.reload();
+            initializeMap();
         }
 
         let map = null;
