@@ -20,3 +20,31 @@ body {
 #map {
     height: 80vh;
 }
+#form {
+    border-radius: 10px;
+    background: lightgray;
+    padding: 10px;
+    width: 350px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+.title {
+    display: flex;
+    justify-content: space-between;
+}
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    max-width: unset!important
+}
+.left-container{
+    width: 50%
+}
+.map{
+    width: 100%
+}
+.date-input, .select-input{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 3px;
+}
