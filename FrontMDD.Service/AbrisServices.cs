@@ -18,7 +18,7 @@ namespace FrontMDD.Service
 
         public async Task<List<Abris>> GetAllAbris()
         {
-            string api = "https://apitestg2.azurewebsites.net/api";
+            string api = "https://apiprodg2.azurewebsites.net/api";
             string apiLocal = "https://localhost:7058/api";
             Console.WriteLine(api);
 
@@ -42,7 +42,7 @@ namespace FrontMDD.Service
         }
         public async Task<List<ShelterState>> GetAllShelterState()
         {
-            string api = "https://apitestg2.azurewebsites.net/api";
+            string api = "https://apiprodg2.azurewebsites.net/api";
             string apiLocal = "https://localhost:7058/api";
 
 
