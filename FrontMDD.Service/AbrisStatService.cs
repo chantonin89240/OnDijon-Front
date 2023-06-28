@@ -40,5 +40,34 @@ namespace FrontMDD.Service
             return stat;
         }
 
+        public async Task<int?> GetShelterStatIA(string id)
+        {
+            string api = "https://apiprodg2.azurewebsites.net/api";
+            string apiLocal = "https://localhost:7058/api";
+
+            Console.WriteLine(api);
+
+            var content = new StringContent(
+                JsonConvert.SerializeObject(new { Id = id }),
+                Encoding.UTF8,
+                "application/json"
+            );
+
+            using var response = await _httpClient.GetAsync(api + "/ShelterStateIA/" + id);
+
+            int? stat = 0;
+
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                response.EnsureSuccessStatusCode();
+
+                var json = await response.Content.ReadAsStringAsync();
+                var retour = JsonConvert.DeserializeObject<ShelterStateIA>(json);
+                stat = retour.TotalVelo;
+            }
+
+            return stat;
+        }
+
     }
 }

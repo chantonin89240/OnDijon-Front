@@ -19,6 +19,7 @@ namespace FrontMDD.WebApplication.Pages
 
         public List<Abris>? Abris { get; set; }
         public List<ShelterState>? ShelterState { get; set; }
+        public ShelterStateIA shelterIA { get; set; }
         public int? AbrisStatCount { get; set; }
         public string? libelleResult { get; set; }
         public List<string> HistorySearch { get; set; }
@@ -45,6 +46,9 @@ namespace FrontMDD.WebApplication.Pages
 
                 foreach (var abris in Abris)
                 {
+                    int? totalVelo = await _abrisStatServices.GetShelterStatIA(abris.RecordId);
+                    abris.TotalVelo = totalVelo;
+
                     var shelter = ShelterState.LastOrDefault(x => x.IdAbris == abris.RecordId);
                     abris.NbPlaces = shelter?.Available;
                 }
