@@ -13,6 +13,7 @@
         public int? NbPlaces { get; set; }
         public int? NbPlacesInitial { get; set; }
         public string? CodComm { get; set; }
+        public int? TotalVelo { get; set; }
 
     }
 }
